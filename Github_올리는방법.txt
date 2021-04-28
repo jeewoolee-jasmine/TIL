@@ -1,0 +1,12 @@
+$ Pwd
+/c/Users/Admin  ~ 원하는 파일 경로
+
+git clone ~ github 사이트 주소
+git init
+연결된 폴더 안에 넣기 
+
+cd ~ 디렉토리 장소 변경해주기 
+git add .  (띄어쓰기 중요)
+git commit -m "하고싶은메세지"
+git push origin (branch이름)
+
