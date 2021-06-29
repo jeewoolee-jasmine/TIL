@@ -1,0 +1,183 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "\"Available tasks are ['mrc', 'rc', 'qa', 'question_answering', 'machine_reading_comprehension', 'reading_comprehension', 'sentiment', 'sentiment_analysis', 'nli', 'natural_language_inference', 'inference', 'fill', 'fill_in_blank', 'fib', 'para', 'pi', 'cse', 'contextual_subword_embedding', 'similarity', 'sts', 'semantic_textual_similarity', 'sentence_similarity', 'sentvec', 'sentence_embedding', 'sentence_vector', 'se', 'inflection', 'morphological_inflection', 'g2p', 'grapheme_to_phoneme', 'grapheme_to_phoneme_conversion', 'w2v', 'wordvec', 'word2vec', 'word_vector', 'word_embedding', 'tokenize', 'tokenise', 'tokenization', 'tokenisation', 'tok', 'segmentation', 'seg', 'mt', 'machine_translation', 'translation', 'pos', 'tag', 'pos_tagging', 'tagging', 'const', 'constituency', 'constituency_parsing', 'cp', 'pg', 'collocation', 'collocate', 'col', 'word_translation', 'wt', 'summarization', 'summarisation', 'text_summarization', 'text_summarisation', 'summary', 'gec', 'review', 'review_scoring', 'lemmatization', 'lemmatisation', 'lemma', 'ner', 'named_entity_recognition', 'entity_recognition', 'zero-topic', 'dp', 'dep_parse', 'caption', 'captioning', 'asr', 'speech_recognition', 'st', 'speech_translation', 'tts', 'text_to_speech', 'speech_synthesis', 'ocr', 'srl', 'semantic_role_labeling', 'p2g', 'aes', 'essay', 'qg', 'question_generation', 'age_suitability', 'wsd']\""
+      ]
+     },
+     "execution_count": 64,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    ">>> from pororo import Pororo\n",
+    ">>> Pororo.available_tasks()    #기능 체크"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'Available models for collocation are ([lang]: ko, [model]: kollocate), ([lang]: en, [model]: collocate.en), ([lang]: ja, [model]: collocate.ja), ([lang]: zh, [model]: collocate.zh)'"
+      ]
+     },
+     "execution_count": 65,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "from pororo import Pororo\n",
+    "Pororo.available_models(\"collocation\")   # 언어지원 확인하기 "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    " #from pororo import Pororo   # 특정한 부분만 쓰고 싶을 때 간단하게 설정해주기 \n",
+    " ner = Pororo(task=\"ocr\", lang=\"ko\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 67,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# MUlitiple model 설정하는 예시\n",
+    "#from pororo import Pororo\n",
+    "#mt = Pororo(task=\"mt\", lang=\"multi\", model=\"transformer.large.multi.mtpg\")\n",
+    "#fast_mt = Pororo(task=\"mt\", lang=\"multi\", model=\"transformer.large.multi.fast.mtpg\")\n",
+    "#ocr = Pororo(task=\"ocr\", lang=\"ko\")\n",
+    "#IMAGE_PATH = \"./source/김광열.jpg\"    # . 은 현재 디렉토리이며, .. 은 상위 디렉토리  -> !pwd로 나오는 경로는 현재 디렉토리이며, .으로 나타낸다.\n",
+    "#ocr(IMAGE_PATH, detail=True)\n",
+    "# !pwd\n",
+    "#file_data =ocr(IMAGE_PATH, detail=True) \n",
+    "#print(json.dumps(file_data, ensure_ascii=False, indent=\"\\t\"))\n",
+    "#print(file_data.values(), sep=\"\\n\")\n",
+    "#file_data.values()\n",
+    "#file_data.keys()\n",
+    "#list_A =[]\n",
+    "#for i in range(len(file_data['bounding_poly'])):\n",
+    "#    dic_k[\"text\"]=file_data['bounding_poly'][i]['description']\n",
+    "#    dic_k[\"box\"]=file_data['bounding_poly'][i]['vertices']\n",
+    "\n",
+    "#    list_A.append(dic_k[\"box\"])\n",
+    "#    list_A.append(dic_k[\"text\"])\n",
+    "#    list_A.append(\"label :\")\n",
+    "#    list_A.append(\"ID :\")\n",
+    "#print(json.dumps(listA, ensure_ascii=False, indent=\"\\t\"))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import json\n",
+    "from collections import OrderedDict\n",
+    "\n",
+    "file_data = OrderedDict"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "def dic( s ):\n",
+    "    s = IMAGE_PATH\n",
+    "    #file_data = IMAGE_PATH\n",
+    "    ocr = Pororo(task=\"ocr\", lang=\"ko\")\n",
+    "    file_data = ocr( s, detail=True)\n",
+    "    \n",
+    "    dic_k = {}\n",
+    "    listA = []\n",
+    "    cnt = 0\n",
+    "    for i in range(len(file_data['bounding_poly'])):\n",
+    "        listA.append({\"text\":file_data['bounding_poly'][i]['description'],\"box\":file_data['bounding_poly'][i]['vertices'],\"label\":\" \", \"id\":cnt +1})\n",
+    "\n",
+    "    return listA\n",
+    "     \n",
+    "          "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pororo import Pororo\n",
+    "import json\n",
+    "\n",
+    "def mk_json(img_path):\n",
+    "    # ocr\n",
+    "    ocr = Pororo(task=\"ocr\", lang=\"ko\")\n",
+    "    result=ocr(img_path, detail=True)\n",
+    "\n",
+    "    # 원하는 정보만\n",
+    "    res_dic={}\n",
+    "    list_res=[]\n",
+    "    id=0    \n",
+    "    for idx in range(len(result[\"bounding_poly\"])):\n",
+    "        text=result[\"bounding_poly\"][idx][\"description\"]\n",
+    "        box=result[\"bounding_poly\"][idx][\"vertices\"]\n",
+    "        id+=1\n",
+    "        list_res.append({\"text\":text,\"box\":box,\"label\":\"\",\"id\":id})\n",
+    "\n",
+    "    # json으로 저장\n",
+    "    with open('./'+img_path.split(sep='/')[-1].split(sep='.')[0]+'.json','w',encoding='cp949') as make_file:\n",
+    "        json.dump(list_res,make_file,indent=\"\\t\")\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "interpreter": {
+   "hash": "4dd82c4ad296456cc5bf7c609e3e0d53ae23701d2dbea05fd117c73a94ff552e"
+  },
+  "kernelspec": {
+   "display_name": "Python 3.6.13 64-bit ('pororo': conda)",
+   "name": "python3"
+  },
+  "language_info": {
+   "name": "python",
+   "version": ""
+  },
+  "orig_nbformat": 4
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
